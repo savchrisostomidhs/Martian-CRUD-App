@@ -3,17 +3,15 @@ const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const app = express();
 
-//DB connection
 let mongoServer;
+let server;
 
+//DB connection
 async function startInMemoryMongoDB() {
     mongoServer = await MongoMemoryServer.create();
     const mongoUri = mongoServer.getUri();
 
-    await mongoose.connect(mongoUri, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+    await mongoose.connect(mongoUri);
     console.log('MongoDB connected');
 }
 
@@ -34,10 +32,12 @@ const ResourceSchema = new mongoose.Schema({
 const Resource = mongoose.model('Resource', ResourceSchema);
 
 //Server connection
-const PORT = 3000;
-const server = app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+    const PORT = 3000;
+    server = app.listen(PORT, () => {
+        console.log(`Server started on port ${PORT}`);
+    });
+}
 
 //Routes
 app.get('/resources/:id', async (req, res) => {
@@ -99,3 +99,5 @@ process.on('SIGTERM', async () => {
     await mongoServer.stop();
     server.close();
 });
+
+module.exports = app;
