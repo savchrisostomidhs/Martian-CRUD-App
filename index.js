@@ -40,6 +40,8 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 //Routes
+
+//Get id
 app.get('/resources/:id', async (req, res) => {
     try {
         const resource = await Resource.findOne({ id: Number(req.params.id) });
@@ -50,6 +52,7 @@ app.get('/resources/:id', async (req, res) => {
     }
 });
 
+//Get
 app.get('/resources', async (req, res) => {
     try {
         const resources = await Resource.find();
