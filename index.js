@@ -62,6 +62,7 @@ app.get('/resources', async (req, res) => {
     }
 });
 
+//Post
 app.post('/resources', async (req, res) => {
     try {
         const resource = new Resource(req.body);
@@ -72,6 +73,7 @@ app.post('/resources', async (req, res) => {
     }
 });
 
+//Patch
 app.patch('/resources/:id', async (req, res) => {
     try {
         const resource = await Resource.findOneAndUpdate(
@@ -86,6 +88,7 @@ app.patch('/resources/:id', async (req, res) => {
     }
 });
 
+//Delete
 app.delete('/resources/:id', async (req, res) => {
     try {
         const resource = await Resource.findOneAndDelete({ id: Number(req.params.id) });
