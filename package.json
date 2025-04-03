@@ -6,7 +6,8 @@
     "start": "nodemon index.js",
     "lint": "eslint .",
     "test": "jest --detectOpenHandles --forceExit",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build": "npm install --omit=dev && npm prune --production"
   },
   "jest": {
     "testEnvironment": "node"
